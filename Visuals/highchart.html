@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Highcharts Visualization</title>
+    <!-- Load Highcharts library -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+    <select id="pageSelector" onchange="changePage()">
+        <option value="index.html">Index Page</option>
+        <option value="scatter.html">Scatter Plot</option>
+        <option value="highchart.html">Highcharts</option>
+    </select>
+    
+    <div id="highchart-container" style="height: 400px;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Highcharts.chart('highchart-container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Race Changes'
+                },
+                xAxis: {
+                    categories: [], 
+                    title: {
+                        text: 'Race'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Percentage Change'
+                    }
+                },
+                series: [{
+                    name: 'Percentage Change 2018-2019',
+                    data: [] 
+                }]
+            });
+
+            fetch('Race_Changes.csv')
+                .then(response => response.text())
+                .then(data => {
+                    const rows = data.split('\n').slice(1); 
+                    const categories = [];
+                    const percentageChanges = [];
+
+                    rows.forEach(row => {
+                        const columns = row.split(',');
+                        const race = columns[0];
+                        const percentageChange = parseFloat(columns[5]);
+
+                        categories.push(race);
+                        percentageChanges.push(percentageChange);
+                    });
+
+                    const chart = Highcharts.charts[0];
+                    chart.xAxis[0].setCategories(categories);
+                    chart.series[0].setData(percentageChanges);
+                });
+        });
+
+        function changePage() {
+            const selectedPage = document.getElementById("pageSelector").value;
+            window.location.href = selectedPage;
+        }
+    </script>
+</body>
+</html>

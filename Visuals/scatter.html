@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Race Info Visualization</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <select id="pageSelector" onchange="changePage()">
+        <option value="index.html">Index Page</option>
+        <option value="scatter.html">Scatter Plot</option>
+        <option value="highchart.html">Highcharts</option>
+    </select>
+    <div id="scatter-plot"></div>
+    <select id="filter"></select>
+    <script>
+        function changePage() {
+            const selectedPage = document.getElementById("pageSelector").value;
+            window.location.href = selectedPage;
+        }
+    </script>
+    <script src="scatter.js"></script>
+</body>
+</html>
