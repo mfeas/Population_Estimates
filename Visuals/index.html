@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Population Changes Visualizations</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <select id="pageSelector" onchange="changePage()">
+        <option value="index.html">Index Page</option>
+        <option value="scatter.html">Scatter Plot</option>
+        <option value="highchart.html">Highcharts</option>
+    </select>
+    <div id="chart"></div>
+    <select id="filter">
+        <option value="positive">Positive Changes</option>
+        <option value="negative">Negative Changes</option>
+    </select>
+    <script>
+        function changePage() {
+            const selectedPage = document.getElementById("pageSelector").value;
+            window.location.href = selectedPage;
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
